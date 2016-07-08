@@ -1,0 +1,289 @@
+# i3 custom configuration file
+# vim: ts=2 sw=2 sts=2 et 
+# armin@arminius.org
+
+set $mod Mod4
+set $term $HOME/bin/terminal
+
+# simple color definitions...
+set $client.bg "#222222"
+set $client.fg "#bbbbaa"
+
+set $workspace.focused.border "#222222"
+set $workspace.focused.fg "#aaaaaa"
+set $workspace.focused.bg "#222222"
+
+set $workspace.inactive.border "#446b79"
+set $workspace.inactive.fg "#222222"
+set $workspace.inactive.bg "#222222"
+
+set $workspace.active.border "#262626"
+set $workspace.active.fg "#bbbbaa"
+set $workspace.active.bg "#262626"
+
+set $workspace.urgent.border "#bbbbaa"
+set $workspace.urgent.fg "#888888"
+set $workspace.urgent.bg "#222222"
+
+# tab border
+set $client.focused.a "#111111"
+
+set $client.inactive.a "#222222"
+set $client.inactive.b "#222222"
+set $client.inactive.c "#222222"
+set $client.inactive.d "#222222"
+
+# tab bg / focus frame
+set $client.focused.b "#444444"
+
+# tab text
+set $client.focused.c "#ccccaa"
+
+# split indicator border
+set $client.focused.d "#444444"
+
+# unfocused tab border
+set $client.unfocused.a "#222222"
+
+set $client.unfocused.b "#222222"
+set $client.unfocused.c "#666666"
+set $client.unfocused.d "#222222"
+
+set $client.urgent.a "#222222"
+set $client.urgent.b "#f22222"
+set $client.urgent.c "#222222"
+set $client.urgent.d "#222222"
+
+# font
+# list of artwiz fonts:
+# anorexia aqui cure drift edges fkp gelly glisp glispbold kates
+# lime mintsmild mintsstrong nu smoothansi snap
+# set $font gelly
+set $font gelly.de
+# set $font cure.de
+font $font
+
+# define commandline for dmenu (application starter)
+set $dmenucommand dmenu_run -fn gelly.de -l 15 -nb '#222222' -nf '#bbbbaa' -sb '#562626' -sf '#ccccbb'
+bindsym $mod+space exec $dmenucommand
+
+# modifier in floating mode
+floating_modifier $mod
+
+# switch off annoying "focus follows mouse"
+focus_follows_mouse no
+
+# start terminal with mod-enter
+bindsym $mod+Return exec $term
+bindsym Mod1+F4 kill
+bindsym $mod+x kill
+
+# change input focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move window
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# set split mode
+bindsym $mod+Shift+v split h
+bindsym $mod+v split v
+
+# fullscreen mode
+bindsym $mod+f fullscreen
+
+# change layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout default
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Tab focus right
+bindsym $mod+Shift+Tab focus left
+bindsym Mod1+Tab focus right
+bindsym Mod1+Shift+Tab focus left
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+
+# additional keybindings
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
+
+bindsym Ctrl+$mod+l exec /home/armin/bin/lock.i3lock
+
+# reload / restart
+#bindsym $mod+Shift+C reload
+bindsym $mod+Shift+R exec $HOME/bin/i3restart; restart
+
+# floating windows
+bindsym $mod+m mode "move" floating
+
+# move floating windows
+mode "move" {
+  bindsym $mod+Tab focus right
+  bindsym Left move left
+  bindsym Down move down
+  bindsym Up move up
+  bindsym Right move right
+  bindsym h move left
+  bindsym j move down
+  bindsym k move up
+  bindsym l move right
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+mode "resize" {
+
+bindsym h resize shrink left 10 px or 10 ppt
+bindsym Shift+H resize shrink right 10 px or 10 ppt
+
+bindsym j resize shrink up 10 px or 10 ppt
+bindsym Shift+J resize grow down 10 px or 10 ppt
+
+bindsym k resize grow up 10 px or 10 ppt
+bindsym Shift+K resize shrink down 10 px or 10 ppt
+
+bindsym l resize grow left 10 px or 10 ppt
+bindsym Shift+L resize grow right 10 px or 10 ppt
+
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+# keybinding for resize mode
+bindsym $mod+r mode "resize"
+
+# i3bar / i3blocks
+# top bar
+# bar {
+#   position bottom 
+#   workspace_buttons yes
+#   status_command i3status
+#   colors {
+#     statusline $client.fg
+#     focused_workspace $workspace.focused.border $workspace.focused.bg $workspace.focused.fg
+#     active_workspace $workspace.active.border $workspace.active.bg $workspace.active.fg
+#     inactive_workspace $workspace.inactive.fg $workspace.inactive.bg $workspace.inactive.border
+#     urgent_workspace $workspace.urgent.bg $workspace.urgent.fg $workspace.urgent.border
+#     background $client.bg
+#    }
+# }
+
+# bottom bar
+# bar {
+#   position bottom
+#   workspace_buttons no
+#   status_command i3blocks -c ~/git/armin.config.i3/i3blocks-bottom.conf
+#   colors {
+#     # color mapping (do not edit!)
+#     statusline $client.fg
+#     focused_workspace $workspace.focused.border $workspace.focused.bg $workspace.focused.fg
+#     active_workspace $workspace.active.border $workspace.active.bg $workspace.active.fg
+#     inactive_workspace $workspace.inactive.fg $workspace.inactive.bg $workspace.inactive.border
+#     urgent_workspace $workspace.urgent.bg $workspace.urgent.fg $workspace.urgent.border
+#     background $client.bg
+#    }
+# }
+# 
+
+# color mapping (do not edit!)
+client.background $client.bg
+client.focused $client.focused.a $client.focused.b $client.focused.c $client.focused.d
+client.focused_inactive $client.inactive.a $client.inactive.b $client.inactive.c $client.inactive.d
+client.unfocused $client.unfocused.a $client.unfocused.b $client.unfocused.c $client.unfocused.d
+client.urgent $client.urgent.a $client.urgent.b $client.urgent.c $client.urgent.d
+
+# client colors
+# color mapping (do not edit!)
+
+# client.placeholder #000000 #DA6F00 #000000 #000000.
+
+# set application specific attributes
+for_window [class="VirtualBox"] floating enable
+for_window [class="Gimp"] floating enable
+for_window [class="Lxappearance"] floating enable
+
+for_window [class="Iceweasel"] move container to workspace $ws2
+for_window [class="Icedove"] move container to workspace $ws3
+
+
+# use 1px border around new windows
+# new_window 1pixel
+new_window pixel 2
+
+# same for floating windows
+new_float pixel 2
+
+# default workspace layout
+# <default|stacking|tabbed>
+workspace_layout default
+
+set $ws1 1: Stacked
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10: Unsorted
+
+# workspace keybindings
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+Shift+exclam move container to workspace $ws1
+bindsym $mod+Shift+quotedbl move container to workspace $ws2
+bindsym $mod+Shift+section move container to workspace $ws3
+bindsym $mod+Shift+dollar move container to workspace $ws4
+bindsym $mod+Shift+percent move container to workspace $ws5
+bindsym $mod+Shift+ampersand move container to workspace $ws6
+bindsym $mod+Shift+slash move container to workspace $ws7
+bindsym $mod+Shift+parenleft move container to workspace $ws8
+bindsym $mod+Shift+parenright move container to workspace $ws9
+bindsym $mod+Shift+equal move container to workspace $ws10
+bindsym $mod+Shift+N move container to workspace next
+bindsym $mod+Shift+P move container to workspace prev
+
+gaps inner 10
+gaps outer 15
+
+bindsym $mod+F11 exec i3-msg gaps inner current minus 5
+bindsym $mod+F12 exec i3-msg gaps inner current plus 5
+
+bindsym $mod+F9 exec i3-msg gaps outer current minus 5
+bindsym $mod+F10 exec i3-msg gaps outer current plus 5
+
+bindsym $mod+c exec /home/armin/bin/compositing on
+bindsym $mod+Shift+C exec /home/armin/bin/compositing off
+
+bindsym $mod+b exec /home/armin/bin/bar on
+bindsym $mod+Shift+B exec /home/armin/bin/bar off
+
+
+
+
+
